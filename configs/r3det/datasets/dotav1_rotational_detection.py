@@ -1,14 +1,28 @@
 # dataset settings
 dataset_type = 'DOTADatasetV1'
 # dataset root path:
-data_root = '/data/dota/'
-trainsplit_ann_folder = 'trainsplit/labelTxt'
-trainsplit_img_folder = 'trainsplit/images'
-valsplit_ann_folder = 'valsplit/labelTxt'
-valsplit_img_folder = 'valsplit/images'
-val_ann_folder = 'val/labelTxt'
-val_img_folder = 'val/images'
-test_img_folder = 'test/images'
+# data_root = '/data/dota/'
+# trainsplit_ann_folder = 'trainsplit/labelTxt'
+# trainsplit_img_folder = 'trainsplit/images'
+# valsplit_ann_folder = 'valsplit/labelTxt'
+# valsplit_img_folder = 'valsplit/images'
+# val_ann_folder = 'val/labelTxt'
+# val_img_folder = 'val/images'
+# test_img_folder = 'test/images'
+
+# Barcode Dataset
+# data_root = '/data/Barcode/dota'
+
+# Top500 Dataset
+data_root = '/data/Top500/feather'
+
+trainsplit_ann_folder = 'train_dota'
+trainsplit_img_folder = 'train_image'
+valsplit_ann_folder = 'validation_dota'
+valsplit_img_folder = 'validation_image'
+val_ann_folder = 'validation_dota'
+val_img_folder = 'validation_image'
+test_img_folder = 'validation_image'
 
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)

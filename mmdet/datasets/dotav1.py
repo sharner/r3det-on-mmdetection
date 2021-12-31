@@ -16,12 +16,16 @@ class DOTADatasetV1(CustomDataset):
     """
         https://captain-whu.github.io/DOTA/dataset.html
     """
-    CLASSES = ('plane', 'baseball-diamond', 'bridge', 'ground-track-field',
-               'small-vehicle', 'large-vehicle', 'ship',
-               'tennis-court', 'basketball-court',
-               'storage-tank', 'soccer-ball-field',
-               'roundabout', 'harbor',
-               'swimming-pool', 'helicopter')
+    # CLASSES = ('plane', 'baseball-diamond', 'bridge', 'ground-track-field',
+    #            'small-vehicle', 'large-vehicle', 'ship',
+    #            'tennis-court', 'basketball-court',
+    #            'storage-tank', 'soccer-ball-field',
+    #            'roundabout', 'harbor',
+    #            'swimming-pool', 'helicopter')
+    # Barcode Dataset
+    # CLASSES = ('Barcode', 'Instrument', 'Tape', 'Text')
+    # Top500 Datset
+    CLASSES = ('Instrument',)
 
     def __init__(self, *args, **kwargs):
         self.difficulty_thresh = kwargs.pop('difficulty_thresh', 100)
@@ -38,11 +42,14 @@ class DOTADatasetV1(CustomDataset):
         ann_files = glob.glob(ann_folder + '/*.txt')
         data_infos = []
         if not ann_files:  # test phase, use image folder as ann_folder to generate pseudo annotations
-            ann_files = glob.glob(ann_folder + '/*.png')
+            # ann_files = glob.glob(ann_folder + '/*.png')
+            ann_files = glob.glob(ann_folder + '/*.jpeg')
             for ann_file in ann_files:
                 data_info = dict()
                 img_id = osp.split(ann_file)[1][:-4]
-                img_name = img_id + '.png'
+                # img_name = img_id + '.png'
+                img_name = img_id + 'jpeg'
+                print(img_name)
                 data_info['filename'] = img_name
                 data_info['ann'] = dict()
                 data_info['ann']['bboxes'] = []
@@ -52,7 +59,8 @@ class DOTADatasetV1(CustomDataset):
             for ann_file in ann_files:
                 data_info = dict()
                 img_id = osp.split(ann_file)[1][:-4]
-                img_name = img_id + '.png'
+                # img_name = img_id + '.png'
+                img_name = img_id + '.jpeg'
                 data_info['filename'] = img_name
                 data_info['ann'] = dict()
                 gt_bboxes = []

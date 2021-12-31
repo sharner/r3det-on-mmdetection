@@ -20,7 +20,11 @@ model = dict(
         num_outs=5),
     bbox_head=dict(
         type='RRetinaHead',
-        num_classes=15,
+        # num_classes=15,
+        # Barcode
+        # num_classes=4,
+        # Top500
+        num_classes=1,
         in_channels=256,
         stacked_convs=4,
         use_h_gt=True,
@@ -58,7 +62,12 @@ model = dict(
     refine_heads=[
         dict(
             type='RRetinaRefineHead',
-            num_classes=15,
+            # DOTA
+            # num_classes=15,
+            # Barcode
+            # num_classes=4,
+            # Top500
+            num_classes=1,
             in_channels=256,
             stacked_convs=4,
             feat_channels=256,
@@ -81,7 +90,12 @@ model = dict(
                 loss_weight=1.0)),
         dict(
             type='RRetinaRefineHead',
-            num_classes=15,
+            # DOTA
+            # num_classes=15,
+            # Barcode
+            # num_classes=4,
+            # Top500
+            num_classes=1,
             in_channels=256,
             stacked_convs=4,
             feat_channels=256,
@@ -145,24 +159,36 @@ train_cfg = dict(
     stage_loss_weights=[1.0, 1.0]
 )
 
+# DOTA
+# merge_nms_iou_thr_dict = {
+#     'roundabout': 0.1, 'tennis-court': 0.3, 'swimming-pool': 0.1, 'storage-tank': 0.1,
+#     'soccer-ball-field': 0.3, 'small-vehicle': 0.05, 'ship': 0.05, 'plane': 0.3,
+#     'large-vehicle': 0.05, 'helicopter': 0.2, 'harbor': 0.0001, 'ground-track-field': 0.3,
+#     'bridge': 0.0001, 'basketball-court': 0.3, 'baseball-diamond': 0.3
+# }
+
+# Barcode
+# merge_nms_iou_thr_dict = {
+#     'Barcode': 0.1, 'Instrument': 0.1, 'Tape': 0.1, 'Text': 0.1
+# }
+
+# Top500
 merge_nms_iou_thr_dict = {
-    'roundabout': 0.1, 'tennis-court': 0.3, 'swimming-pool': 0.1, 'storage-tank': 0.1,
-    'soccer-ball-field': 0.3, 'small-vehicle': 0.05, 'ship': 0.05, 'plane': 0.3,
-    'large-vehicle': 0.05, 'helicopter': 0.2, 'harbor': 0.0001, 'ground-track-field': 0.3,
-    'bridge': 0.0001, 'basketball-court': 0.3, 'baseball-diamond': 0.3
+    'instrument': 0.8
 }
+
 
 merge_cfg = dict(
     nms_pre=2000,
-    score_thr=0.1,
+    score_thr=0.5,
     nms=dict(type='rnms', iou_thr=merge_nms_iou_thr_dict),
     max_per_img=1000,
 )
 
 test_cfg = dict(
     nms_pre=1000,
-    score_thr=0.1,
-    nms=dict(type='rnms', iou_thr=0.05),
+    score_thr=0.5,
+    nms=dict(type='rnms', iou_thr=0.8),
     max_per_img=100,
     merge_cfg=merge_cfg
 )

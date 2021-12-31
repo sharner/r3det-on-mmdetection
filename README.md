@@ -18,10 +18,21 @@ Techniques:
 | [R<sup>3</sup>Det*](https://arxiv.org/abs/1908.05612)| ResNet50 600->800 | DOTA1.0 trainval | DOTA1.0 test | 71.90 | [Google Drive](https://drive.google.com/file/d/1JYyEHyzloRcxYlSRuiCLEaCjjj4Q7L_E/view?usp=sharing) -- [Baidu Drive (u8bj)](https://pan.baidu.com/s/1Ijmh1Lco4T7HPwAtT2h0Zg) | **1X** GeForce RTX 2080 Ti | 6 | H + R | smooth L1 | 2x | No | [r3det_r50_fpn_2x_CustomizeImageSplit.py](./configs/r3det/r3det_r50_fpn_2x_CustomizeImageSplit.py) |
 
 [R<sup>3</sup>Det*](https://arxiv.org/abs/1908.05612): R<sup>3</sup>Det with two refinement stages
-                 
+
+## Build the Container [LJ]
+
+```{sh}
+docker build -t r3det-on-mmdetection:latest .
+```
+
 ## Compile
 ```
-python setup.py install
+run_container() {
+  docker run \
+    --mount type=bind,source=$(pwd),target=/layerjot/r3det-on-mmdetection \
+    --mount type=bind,source=/data,target=/data \
+    --rm --ipc=host -it r3det-on-mmdetection:latest
+}
 ```
 
 ## Train
